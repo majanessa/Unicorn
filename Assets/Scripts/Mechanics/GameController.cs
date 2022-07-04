@@ -47,7 +47,7 @@ namespace Unicorn.Mechanics
             while (true) {
                 // Пока не проиграли постоянно создаем топоры
                 if (model.player.controlEnabled)
-                    Instantiate(model.enemy, new Vector2(Random.Range (-2.5f, 2.5f), 5.9f), Quaternion.identity);
+                    Instantiate(model.enemy, new Vector2(Random.Range (-2f, 2f), 5.9f), Quaternion.identity);
                 yield return new WaitForSeconds(Random.Range(1f, 1.5f));
             }
 	    }
@@ -56,7 +56,7 @@ namespace Unicorn.Mechanics
             while (true) {
                 // Пока не проиграли постоянно создаем монеты
                 if (model.player.controlEnabled)
-                    Instantiate(model.coin, new Vector2(Random.Range (-2.5f, 2.5f), 5.9f), Quaternion.identity);
+                    Instantiate(model.coin, new Vector2(Random.Range (-2f, 2f), 5.9f), Quaternion.identity);
                 yield return new WaitForSeconds(1f);
             }
 	    }

@@ -7,7 +7,7 @@ using UnityEngine;
 namespace Unicorn.Gameplay
 {
     /// <summary>
-    /// Fired when the player has died.
+    /// Fired when the player has win.
     /// </summary>
     /// <typeparam name="PlayerWin"></typeparam>
     public class PlayerWin : Simulation.Event<PlayerWin>

@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 namespace Unicorn.Mechanics
 {
@@ -18,9 +19,17 @@ namespace Unicorn.Mechanics
             // Пока не проиграли постоянно создаем монеты
             while (true) {
                 if (playerWin)
-                    Instantiate(playerWin, new Vector2(Random.Range (-2.5f, 2.5f), 5.9f), Quaternion.identity);
+                    Instantiate(playerWin, new Vector2(Random.Range (-2f, 2f), 5.9f), Quaternion.identity);
                 yield return new WaitForSeconds(0.5f);
             }
 	    }
+
+        private void OnMouseUp() {
+            SceneManager.LoadScene ("Start");
+        }
+
+        private void OnTouchUp() {
+            SceneManager.LoadScene ("Start");
+        }
     }
 }

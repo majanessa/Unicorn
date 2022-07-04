@@ -23,7 +23,7 @@ namespace Unicorn.Mechanics {
         /*internal new*/ public Collider2D collider2d;
         /*internal new*/ public AudioSource audioSource;
         /*internal new*/ public Rigidbody2D rb;
-        public Health health;
+        
         public bool controlEnabled = true;
 
         Vector2 move;
@@ -33,7 +33,6 @@ namespace Unicorn.Mechanics {
 
         void Awake()
         {
-            health = GetComponent<Health>();
             audioSource = GetComponent<AudioSource>();
             collider2d = GetComponent<Collider2D>();
             rb = GetComponent<Rigidbody2D>();
@@ -46,12 +45,10 @@ namespace Unicorn.Mechanics {
             if (controlEnabled) {
                 Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                if (mousePos.x > 0)
-                    transform.localScale = new Vector2(-2, 2);
-                else if (mousePos.x < 0)
-                    transform.localScale = new Vector2(2, 2);
+                mousePos.x = mousePos.x > 2f ? 2f : mousePos.x;
+                mousePos.x = mousePos.x < -2f ? -2f : mousePos.x;
                     
-                transform.position = Vector2.MoveTowards(transform.position, new Vector3(mousePos.x, transform.position.y, transform.position.z), speed * Time.deltaTime);
+                transform.position = Vector2.MoveTowards(transform.position, new Vector3(mousePos.x, mousePos.y, transform.position.z), speed * Time.deltaTime);
             }
         }
     }

@@ -24,7 +24,7 @@ namespace Unicorn.Model {
 
         public Text collectedCoins;
 
-        public Text record;
+        public int countCollectedCoins;
 
         public GameObject restartButton;
     }

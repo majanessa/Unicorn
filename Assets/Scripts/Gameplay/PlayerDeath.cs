@@ -17,18 +17,17 @@ namespace Unicorn.Gameplay
         public override void Execute()
         {
             var player = model.player;
-            // if (player.health.IsAlive)
-            // {
-                //player.health.Die();
-                if (player.audioSource && player.deathAudio)
-                    if (player.controlEnabled) {
-                        player.audioSource.PlayOneShot(player.deathAudio);
-                        player.controlEnabled = false;
-                    }
-                    player.animator.SetBool("Dead", true);
-                    player.rb.gravityScale = 1;
-                    model.restartButton.SetActive(true);
-            // }
+
+            if (player.audioSource && player.deathAudio)
+            
+                if (player.controlEnabled) {
+                    player.audioSource.PlayOneShot(player.deathAudio);
+                    player.controlEnabled = false;
+                }
+                
+                player.animator.SetBool("Dead", true);
+                player.rb.gravityScale = 1;
+                model.restartButton.SetActive(true);
         }
     }
 }

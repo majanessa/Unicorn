@@ -1,13 +1,8 @@
 using UnityEngine;
 
-// Скрипт что вешаем на кажду бомбочку
-// Отвечает за их постоянное падание вниз
 namespace Unicorn.Mechanics
 {
 	public class FallDown : MonoBehaviour {
-
-		// [SerializeField]
-		// private float fallSpeed = 3f;
 
 		private float fallSpeed;
 

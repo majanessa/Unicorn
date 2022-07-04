@@ -9,7 +9,7 @@ namespace Unicorn.Gameplay
 {
 
     /// <summary>
-    /// Fired when a Player collides with an Enemy.
+    /// Fired when a Player collides with an Coin.
     /// </summary>
     /// <typeparam name="PlayerCoinCollision"></typeparam>
     public class PlayerCoinCollision : Simulation.Event<PlayerCoinCollision>
@@ -21,8 +21,8 @@ namespace Unicorn.Gameplay
         public override void Execute()
         {
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt ("Coins") + 1);
-            model.collectedCoins.text = PlayerPrefs.GetInt ("Coins").ToString () + "/" + 50;
-            if (PlayerPrefs.GetInt ("Coins") == 50) {
+            model.collectedCoins.text = PlayerPrefs.GetInt ("Coins").ToString () + "/" + 20;
+            if (PlayerPrefs.GetInt ("Coins") == 20) {
                 SceneManager.LoadScene ("Win");
             }
             UnityEngine.Object.Destroy(coin.gameObject);
