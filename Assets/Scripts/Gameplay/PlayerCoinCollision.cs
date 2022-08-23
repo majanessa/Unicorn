@@ -1,31 +1,27 @@
-using Unicorn.Core;
-using Unicorn.Mechanics;
+using Unicorn.Mechanics.Controller;
+using Unicorn.Mechanics.Scenes;
 using Unicorn.Model;
 using UnityEngine;
 using static Unicorn.Core.Simulation;
-using UnityEngine.SceneManagement;
 
 namespace Unicorn.Gameplay
 {
-
     /// <summary>
     /// Fired when a Player collides with an Coin.
     /// </summary>
-    /// <typeparam name="PlayerCoinCollision"></typeparam>
-    public class PlayerCoinCollision : Simulation.Event<PlayerCoinCollision>
+    public class PlayerCoinCollision : Event<PlayerCoinCollision>
     {
-        public CoinController coin;
+        public  UICoinAmountController coinAmountUI;
 
-        GameModel model = Simulation.GetModel<GameModel>();
+        private readonly GameModel _model = GetModel<GameModel>();
 
         public override void Execute()
         {
+            Level level = _model.scenesData.levels[_model.scenesData.CurrentLevelIndex - 1];
             PlayerPrefs.SetInt("Coins", PlayerPrefs.GetInt ("Coins") + 1);
-            model.collectedCoins.text = PlayerPrefs.GetInt ("Coins").ToString () + "/" + 20;
-            if (PlayerPrefs.GetInt ("Coins") == 20) {
-                SceneManager.LoadScene ("Win");
-            }
-            UnityEngine.Object.Destroy(coin.gameObject);
+            coinAmountUI.collectedCoins.text = PlayerPrefs.GetInt ("Coins").ToString () + "/" + level.NeedAmountCoin;
+            if (PlayerPrefs.GetInt ("Coins") == level.NeedAmountCoin)
+                Schedule<PlayerWin>();
         }
     }
 }

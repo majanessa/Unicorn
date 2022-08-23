@@ -1,22 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using Unicorn.Core;
+using Unicorn.Mechanics;
 using Unicorn.Model;
-using UnityEngine;
+using UnityEngine.SceneManagement;
 
 namespace Unicorn.Gameplay
 {
     /// <summary>
     /// Fired when the player has win.
     /// </summary>
-    /// <typeparam name="PlayerWin"></typeparam>
     public class PlayerWin : Simulation.Event<PlayerWin>
     {
-        GameModel model = Simulation.GetModel<GameModel>();
+        private readonly GameModel _model = Simulation.GetModel<GameModel>();
 
+        // ReSharper disable Unity.PerformanceAnalysis
         public override void Execute()
         {
-            
+            var player = _model.player;
+            player.controlEnabled = false;
+            player.gameObject.SetActive(false);
+            SceneManager.LoadSceneAsync("Win Menu", LoadSceneMode.Additive);
+            FallDownItem.OnFallDownOverFly = null;
         }
     }
 }

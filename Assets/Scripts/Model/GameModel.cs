@@ -1,6 +1,5 @@
-using Unicorn.Mechanics;
-using UnityEngine;
-using UnityEngine.UI;
+using Unicorn.Mechanics.Controller;
+using Unicorn.Mechanics.Scenes;
 
 namespace Unicorn.Model {
 
@@ -8,24 +7,13 @@ namespace Unicorn.Model {
     public class GameModel
     {
         /// <summary>
-        /// The camera in the scene.
-        /// </summary>
-        // public Camera camera;
-
-        /// <summary>
         /// The main component which controls the player sprite, controlled 
         /// by the user.
         /// </summary>
         public PlayerController player;
 
-        public EnemyController enemy;
-
-        public CoinController coin;
-
-        public Text collectedCoins;
-
-        public int countCollectedCoins;
-
-        public GameObject restartButton;
+        public UICoinAmountController coinAmountUI;
+        
+        public ScenesData scenesData;
     }
 }
