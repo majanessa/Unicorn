@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unicorn.Core;
+using Core;
+using Mechanics.Scenes;
+using Model;
 using UnityEngine;
-using Unicorn.Mechanics.Scenes;
-using Unicorn.Model;
 using Random = UnityEngine.Random;
 
-namespace Unicorn.Mechanics
+namespace Mechanics
 {
     public class FallDownSpawner : MonoBehaviour
     {
-        [Tooltip("Количество объектов в пуле")] [SerializeField]
-        private int _poolCount;
-
+        [Tooltip("Number of objects in the pool")] [SerializeField]
+        private int poolCount;
+        
         private static Dictionary<GameObject, FallDownItem> _fallDownItems;
         private Queue<GameObject> _currentPrefabs;
         
@@ -25,13 +25,13 @@ namespace Unicorn.Mechanics
         
         private void Start()
         {
-            _level = scenesData.levels[scenesData.CurrentLevelIndex - 1];
+            _level = scenesData.levels[scenesData.currentLevelIndex - 1];
             _fallDownItems = new Dictionary<GameObject, FallDownItem>();
             _currentPrefabs = new Queue<GameObject>();
         
-            for (int i = 0; i < _poolCount; i++)
+            for (int i = 0; i < poolCount; i++)
             {
-                var prefab = Instantiate(_level.FallDownPrefabs[Random.Range(0, _level.FallDownPrefabs.Count)]);
+                var prefab = Instantiate(_level.fallDownPrefabs[Random.Range(0, _level.fallDownPrefabs.Count)]);
                 var script = prefab.GetComponent<FallDownItem>();
                 prefab.SetActive(false);
                 _fallDownItems.Add(prefab, script);
@@ -42,19 +42,17 @@ namespace Unicorn.Mechanics
             
             StartCoroutine(Spawn());
         }
-
-        // ReSharper disable Unity.PerformanceAnalysis
+        
         private IEnumerator Spawn()
         {
-            if (_level.SpawnTime == 0)
+            if (_level.spawnTime == 0)
             {
-                Debug.LogError("Не выставлено время спауна, задано стандартное значение - 1сек.");
-                _level.SpawnTime = 1;
+                _level.spawnTime = 1;
             }
         
             while (_model.player.controlEnabled)
             {
-                yield return new WaitForSeconds(_level.SpawnTime);
+                yield return new WaitForSeconds(_level.spawnTime);
                 if (_currentPrefabs.Count > 0)
                 {
                     var prefab = _currentPrefabs.Dequeue();

@@ -1,10 +1,10 @@
-using Unicorn.Core;
-using Unicorn.Gameplay;
-using Unicorn.Model;
+using Core;
+using Gameplay;
+using Model;
 using UnityEngine;
-using static Unicorn.Core.Simulation;
+using static Core.Simulation;
 
-namespace Unicorn.Mechanics.Controller
+namespace Mechanics.Controllers
 {
     public class CoinController : FallDownItem
     {
@@ -16,10 +16,10 @@ namespace Unicorn.Mechanics.Controller
                 var player = other.gameObject.GetComponent<PlayerController>();
                 if (player != null && player.controlEnabled)
                 {
-                    if (audioSource && audioSource.clip != null)
-                        audioSource.Play();
+                    if (AudioSource && AudioSource.clip != null)
+                        AudioSource.Play();
                     var ev = Schedule<PlayerCoinCollision>();
-                    ev.coinAmountUI = _model.coinAmountUI;
+                    ev.CoinAmountUI = _model.coinAmountUI;
                     OnFallDownOverFly(gameObject);
                 }
             }

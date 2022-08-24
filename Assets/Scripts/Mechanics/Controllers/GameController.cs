@@ -1,9 +1,9 @@
-using Unicorn.Model;
+using Core;
+using Model;
+using Mechanics.Scenes;
 using UnityEngine;
-using Unicorn.Core;
-using Unicorn.Mechanics.Scenes;
 
-namespace Unicorn.Mechanics.Controller
+namespace Mechanics.Controllers
 {
     /// <summary>
     /// This class exposes the the game model in the inspector, and ticks the
@@ -26,20 +26,20 @@ namespace Unicorn.Mechanics.Controller
             GameObject background = GameObject.Find("Main Objects/Background");
             ScenesData scenesData = model.scenesData;
             background.GetComponent<SpriteRenderer>().sprite =
-                scenesData.levels[scenesData.CurrentLevelIndex - 1].background;
+                scenesData.levels[scenesData.currentLevelIndex - 1].background;
         }
 
-        void OnEnable()
+        private void OnEnable()
         {
             Instance = this;
         }
 
-        void OnDisable()
+        private void OnDisable()
         {
             if (Instance == this) Instance = null;
         }
 
-        void Update()
+        private void Update()
         {
             if (Instance == this) Simulation.Tick();
         }

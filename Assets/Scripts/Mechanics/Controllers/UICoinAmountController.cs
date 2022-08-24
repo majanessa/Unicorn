@@ -1,24 +1,24 @@
-using Unicorn.Core;
-using Unicorn.Mechanics.Scenes;
-using Unicorn.Model;
+using Core;
+using Model;
+using Mechanics.Scenes;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Unicorn.Mechanics.Controller
+namespace Mechanics.Controllers
 {
     public class UICoinAmountController : MonoBehaviour
     {
-        private Text txt;
+        private Text _txt;
         private readonly GameModel _model = Simulation.GetModel<GameModel>();
         private Level _level;
         public Text collectedCoins;
 
-        void Start ()
+        private void Start ()
         {
-            _level = _model.scenesData.levels[_model.scenesData.CurrentLevelIndex - 1];
-            txt = GetComponent <Text> ();
+            _level = _model.scenesData.levels[_model.scenesData.currentLevelIndex - 1];
+            _txt = GetComponent <Text> ();
             PlayerPrefs.SetInt("Coins", 0);
-            txt.text = PlayerPrefs.GetInt("Coins").ToString() + "/" + _level.NeedAmountCoin;
+            _txt.text = PlayerPrefs.GetInt("Coins").ToString() + "/" + _level.needAmountCoin;
         }
     }
 }

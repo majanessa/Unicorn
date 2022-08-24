@@ -1,7 +1,7 @@
-using Unicorn.Mechanics.Controller;
-using Unicorn.Mechanics.Scenes;
+using Mechanics.Controllers;
+using Mechanics.Scenes;
 
-namespace Unicorn.Model {
+namespace Model {
 
     [System.Serializable]
     public class GameModel

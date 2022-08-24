@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace Unicorn.Mechanics.Scenes
+namespace Mechanics.Scenes
 {
     public enum Type
     {
@@ -11,7 +11,7 @@ namespace Unicorn.Mechanics.Scenes
     [CreateAssetMenu(fileName = "NewMenu", menuName = "Scene Data/Menu")]
     public class Menu : GameScene
     {
-        // Настройки, относящиеся только к меню
+        // Menu settings
         [Header("Menu specific")]
         public Type type;
     }

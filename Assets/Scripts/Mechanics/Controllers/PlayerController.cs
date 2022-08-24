@@ -1,8 +1,7 @@
 using UnityEngine;
 
-namespace Unicorn.Mechanics.Controller
+namespace Mechanics.Controllers
 {
-
     public class PlayerController : MonoBehaviour
     {
         public AudioClip deathAudio;        
@@ -28,16 +27,18 @@ namespace Unicorn.Mechanics.Controller
 
         private void OnMouseDrag()
         {
-            if (controlEnabled) {
-                Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            if (!controlEnabled) return;
+            if (Camera.main == null) return;
+            Vector3 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
-                mousePos.x = mousePos.x > 2f ? 2f : mousePos.x;
-                mousePos.x = mousePos.x < -2f ? -2f : mousePos.x;
-                    
-                transform.position = Vector2.MoveTowards(transform.position, 
-                    new Vector3(mousePos.x, mousePos.y, transform.position.z), 
-                    speed * Time.deltaTime);
-            }
+            mousePos.x = mousePos.x > 2f ? 2f : mousePos.x;
+            mousePos.x = mousePos.x < -2f ? -2f : mousePos.x;
+
+            var position = transform.position;
+            position = Vector2.MoveTowards(position, 
+                new Vector3(mousePos.x, mousePos.y, position.z), 
+                speed * Time.deltaTime);
+            transform.position = position;
         }
     }
 }

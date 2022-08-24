@@ -1,4 +1,4 @@
-namespace Unicorn.Core
+namespace Core
 {
     public static partial class Simulation
     {
@@ -8,9 +8,9 @@ namespace Unicorn.Core
         /// models and configuration classes.
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        static class InstanceRegister<T> where T : class, new()
+        private static class InstanceRegister<T> where T : class, new()
         {
-            public static T instance = new T();
+            public static readonly T Instance = new T();
         }
     }
 }

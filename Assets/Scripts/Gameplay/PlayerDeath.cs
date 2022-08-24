@@ -1,9 +1,9 @@
-using Unicorn.Core;
-using Unicorn.Mechanics;
-using Unicorn.Model;
+using Model;
+using Core;
+using Mechanics;
 using UnityEngine;
 
-namespace Unicorn.Gameplay
+namespace Gameplay
 {
     /// <summary>
     /// Fired when the player has died.
@@ -13,7 +13,7 @@ namespace Unicorn.Gameplay
         private readonly GameModel _model = Simulation.GetModel<GameModel>();
         private static readonly int Dead = Animator.StringToHash("Dead");
 
-        public override void Execute()
+        protected override void Execute()
         {
             var player = _model.player;
 

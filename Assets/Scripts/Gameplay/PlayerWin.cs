@@ -1,9 +1,9 @@
-using Unicorn.Core;
-using Unicorn.Mechanics;
-using Unicorn.Model;
+using Model;
+using Core;
+using Mechanics;
 using UnityEngine.SceneManagement;
 
-namespace Unicorn.Gameplay
+namespace Gameplay
 {
     /// <summary>
     /// Fired when the player has win.
@@ -11,9 +11,8 @@ namespace Unicorn.Gameplay
     public class PlayerWin : Simulation.Event<PlayerWin>
     {
         private readonly GameModel _model = Simulation.GetModel<GameModel>();
-
-        // ReSharper disable Unity.PerformanceAnalysis
-        public override void Execute()
+        
+        protected override void Execute()
         {
             var player = _model.player;
             player.controlEnabled = false;

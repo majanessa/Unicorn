@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Unicorn.Core
+namespace Core
 {
     /// <summary>
     /// HeapQueue provides a queue collection that is always ordered.
@@ -9,35 +9,27 @@ namespace Unicorn.Core
     /// <typeparam name="T"></typeparam>
     public class HeapQueue<T> where T : IComparable<T>
     {
-        List<T> items;
+        private readonly List<T> _items;
 
-        public int Count { get { return items.Count; } }
+        public int Count => _items.Count;
 
-        public bool IsEmpty { get { return items.Count == 0; } }
+        public void Clear() => _items.Clear();
 
-        public T First { get { return items[0]; } }
-
-        public void Clear() => items.Clear();
-
-        public bool Contains(T item) => items.Contains(item);
-
-        public void Remove(T item) => items.Remove(item);
-
-        public T Peek() => items[0];
+        public T Peek() => _items[0];
 
         public HeapQueue()
         {
-            items = new List<T>();
+            _items = new List<T>();
         }
 
         public void Push(T item)
         {
             //add item to end of tree to extend the list
-            items.Add(item);
+            _items.Add(item);
             //find correct position for new item.
-            SiftDown(0, items.Count - 1);
+            SiftDown(0, _items.Count - 1);
         }
-
+        
         public T Pop()
         {
 
@@ -45,12 +37,12 @@ namespace Unicorn.Core
             //then, add last item to front of tree, shrink the list
             //and find correct index in tree for first item.
             T item;
-            var last = items[items.Count - 1];
-            items.RemoveAt(items.Count - 1);
-            if (items.Count > 0)
+            var last = _items[^1];
+            _items.RemoveAt(_items.Count - 1);
+            if (_items.Count > 0)
             {
-                item = items[0];
-                items[0] = last;
+                item = _items[0];
+                _items[0] = last;
                 SiftUp();
             }
             else
@@ -60,53 +52,52 @@ namespace Unicorn.Core
             return item;
         }
 
+        private static int Compare(T a, T b) => a.CompareTo(b);
 
-        int Compare(T A, T B) => A.CompareTo(B);
-
-        void SiftDown(int startpos, int pos)
+        private void SiftDown(int startPos, int pos)
         {
             //preserve the newly added item.
-            var newitem = items[pos];
-            while (pos > startpos)
+            var newItem = _items[pos];
+            while (pos > startPos)
             {
                 //find parent index in binary tree
-                var parentpos = (pos - 1) >> 1;
-                var parent = items[parentpos];
+                var parentPos = (pos - 1) >> 1;
+                var parent = _items[parentPos];
                 //if new item precedes or equal to parent, pos is new item position.
-                if (Compare(parent, newitem) <= 0)
+                if (Compare(parent, newItem) <= 0)
                     break;
                 //else move parent into pos, then repeat for grand parent.
-                items[pos] = parent;
-                pos = parentpos;
+                _items[pos] = parent;
+                pos = parentPos;
             }
-            items[pos] = newitem;
+            _items[pos] = newItem;
         }
-
-        void SiftUp()
+        
+        private void SiftUp()
         {
-            var endpos = items.Count;
-            var startpos = 0;
+            var endPos = _items.Count;
+            const int startPos = 0;
             //preserve the inserted item
-            var newitem = items[0];
-            var childpos = 1;
+            var newItem = _items[0];
+            var childPos = 1;
             var pos = 0;
             //find child position to insert into binary tree
-            while (childpos < endpos)
+            var rightPos = childPos + 1;
+            while (childPos < endPos)
             {
                 //get right branch
-                var rightpos = childpos + 1;
                 //if right branch should precede left branch, move right branch up the tree
-                if (rightpos < endpos && Compare(items[rightpos], items[childpos]) <= 0)
-                    childpos = rightpos;
+                if (rightPos < endPos && Compare(_items[rightPos], _items[childPos]) <= 0)
+                    childPos = rightPos;
                 //move child up the tree
-                items[pos] = items[childpos];
-                pos = childpos;
+                _items[pos] = _items[childPos];
+                pos = childPos;
                 //move down the tree and repeat.
-                childpos = 2 * pos + 1;
+                childPos = 2 * pos + 1;
             }
             //the child position for the new item.
-            items[pos] = newitem;
-            SiftDown(startpos, pos);
+            _items[pos] = newItem;
+            SiftDown(startPos, pos);
         }
     }
 }

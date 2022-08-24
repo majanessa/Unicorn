@@ -1,20 +1,23 @@
-using UnityEngine;
 using System.Collections.Generic;
+using UnityEngine;
 
-namespace Unicorn.Mechanics.Scenes
+namespace Mechanics.Scenes
 {
     [CreateAssetMenu(fileName = "NewLevel", menuName = "Scene Data/Level")]
     public class Level : GameScene
     {
-        // Настройки, относящиеся только к уровню
-        [Header("Level specific")]
-        [Tooltip("Ссылки на префабы")] [SerializeField]
-        public List<GameObject> FallDownPrefabs;
+        // Level settings
+        [Header("Background")]
+        public Sprite background;
         
-        [Tooltip("Время между спауном")] [SerializeField]
-        public float SpawnTime;
+        [Header("Level specific")]
+        [Tooltip("Links to prefabs")] [SerializeField]
+        public List<GameObject> fallDownPrefabs;
+        
+        [Tooltip("Time between spawns")] [SerializeField]
+        public float spawnTime;
 
-        [Tooltip("Необходимое количество монет для прохождения уровня")] [SerializeField]
-        public int NeedAmountCoin;
+        [Tooltip("The required number of coins to pass the level")] [SerializeField]
+        public int needAmountCoin;
     }
 }
